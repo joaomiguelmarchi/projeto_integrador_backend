@@ -41,3 +41,5 @@ nb-configuration.xml
 .certs/
 
 ./.kotlin
+
+src/main/resources/jwt
