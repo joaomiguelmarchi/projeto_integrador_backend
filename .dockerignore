@@ -1,4 +1,11 @@
-*
+.gradle
+build
+.git
+.gitignore
+Dockerfile
+docker-compose.yaml
+node_modules
+
 !build/*-runner
 !build/*-runner.jar
 !build/lib/*
