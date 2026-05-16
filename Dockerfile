@@ -7,8 +7,6 @@ COPY gradle /app/gradle
 
 RUN sed -i 's/\r$//' gradlew && chmod +x gradlew
 
-RUN sed -i 's/\r$//' gradlew && chmod +x gradlew
-
 COPY src /app/src
 
 RUN ./gradlew quarkusBuild -x test --no-daemon
