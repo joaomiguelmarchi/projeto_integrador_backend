@@ -22,15 +22,15 @@ class ProcedureJPA() {
     @Column(name = "value", nullable = false)
     var value: Double = 0.0
 
-    @Column(name = "rating", nullable = true)
-    var rating: Int? = 0
+    @Column(name = "type", nullable = false)
+    var type: String = ""
 
     fun toProcedure(): Procedure = Procedure(
         id = this.id,
         name = this.name,
         statusCode = this.statusCode,
         value = this.value,
-        rating = this.rating,
+        type = this.type,
     )
 }
 

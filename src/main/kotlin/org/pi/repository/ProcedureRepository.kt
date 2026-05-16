@@ -14,7 +14,7 @@ class ProcedureRepository(
 
         procedureJpa.name = procedure.name!!
         procedureJpa.value = procedure.value!!
-        procedureJpa.rating = procedure.rating
+        procedureJpa.type = procedure.type!!
         procedureJpa.statusCode = procedure.statusCode!!
 
         procedureRepositoryJPA.persist(procedureJpa)
@@ -47,7 +47,9 @@ class ProcedureRepository(
         procedureJpa.name = procedure.name!!
         procedureJpa.value = procedure.value!!
         procedureJpa.statusCode = procedure.statusCode!!
-        procedureJpa.rating = procedure.rating
+        procedureJpa.type = procedure.type!!
+
+        procedureRepositoryJPA.persist(procedureJpa)
 
         return procedureJpa.toProcedure()
     }
