@@ -5,6 +5,7 @@ import jakarta.ws.rs.DELETE
 import jakarta.ws.rs.GET
 import jakarta.ws.rs.POST
 import jakarta.ws.rs.Path
+import jakarta.ws.rs.PathParam
 import jakarta.ws.rs.Produces
 import jakarta.ws.rs.QueryParam
 import jakarta.ws.rs.core.MediaType
@@ -54,9 +55,9 @@ class ProcedureController(
     }
 
     @GET
-    @Path("/details")
+    @Path("/details/{id}")
     fun details(
-        @QueryParam("id") id: Int,
+        @PathParam("id") id: Int,
     ): Response {
         val response = procedureUseCase.details(id)
 

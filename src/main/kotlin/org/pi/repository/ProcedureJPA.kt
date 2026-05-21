@@ -7,7 +7,7 @@ import org.pi.model.Procedure
 import org.pi.model.User
 
 @Entity
-@Table(name = "procedure")
+@Table(name = "clinic_procedure")
 class ProcedureJPA() {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

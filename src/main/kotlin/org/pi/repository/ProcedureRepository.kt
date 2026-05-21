@@ -1,10 +1,12 @@
 package org.pi.repository
 
+import jakarta.enterprise.context.ApplicationScoped
 import jakarta.transaction.Transactional
 import org.pi.model.Procedure
 import org.pi.model.User
 import java.util.*
 
+@ApplicationScoped
 class ProcedureRepository(
     private val procedureRepositoryJPA: ProcedureRepositoryJPA,
 ) {

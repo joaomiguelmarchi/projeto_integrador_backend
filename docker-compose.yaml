@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   mysql:
     image: mysql:8.0
@@ -39,6 +37,9 @@ services:
       DB_NAME: ${DB_NAME}
       DB_HOST: ${DB_HOST}
       DB_PROTOCOL: ${DB_PROTOCOL}
+      RESEND_MAIL_API_URL: ${RESEND_MAIL_API_URL}
+      RESEND_MAIL_API_KEY: ${RESEND_MAIL_API_KEY}
+      RESEND_MAIL_API_FROM: ${RESEND_MAIL_API_FROM}
     networks:
       - app-network
 

@@ -1,16 +1,27 @@
 package org.pi.usecase
 
+import jakarta.enterprise.context.ApplicationScoped
 import org.pi.model.Procedure
 import org.pi.repository.ProcedureRepository
 import org.pi.repository.UserRepository
 import org.pi.utils.entities.DefaultResponse
+import org.pi.utils.entities.Email
 import org.pi.utils.functions.UNEXPECTED
+import org.pi.workers.EmailQueue
 
+@ApplicationScoped
 class ProcedureUseCase(
     private val procedureRepository: ProcedureRepository,
+    private val mailQueue: EmailQueue
 ) {
     fun insertProcedure(procedure: Procedure): DefaultResponse<Procedure> {
         try {
+            mailQueue.push(Email(
+                subject = "Procedure",
+                content = "Procedure ${procedure.name}",
+                to = listOf("lucasvicenti60@gmail.com")
+            ))
+
             val procedure = procedureRepository.insertNewProcedure(procedure)
 
             return DefaultResponse(procedure)
