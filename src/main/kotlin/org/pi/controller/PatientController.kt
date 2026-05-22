@@ -7,27 +7,24 @@ import jakarta.ws.rs.POST
 import jakarta.ws.rs.Path
 import jakarta.ws.rs.PathParam
 import jakarta.ws.rs.Produces
-import jakarta.ws.rs.QueryParam
 import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.Response
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody
-import org.pi.model.Login
-import org.pi.model.Procedure
-import org.pi.usecase.ProcedureUseCase
-import org.pi.usecase.UserUseCase
+import org.pi.model.Patient
+import org.pi.usecase.PatientUseCase
 
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-@Path("/procedure")
-class ProcedureController(
-    private val procedureUseCase: ProcedureUseCase,
+@Path("/patient")
+class PatientController(
+    private val patientUseCase: PatientUseCase,
 ) {
     @POST
     @Path("/register")
     fun login(
-        @RequestBody procedure: Procedure,
+        @RequestBody patient: Patient,
     ): Response {
-        val response = procedureUseCase.insertProcedure(procedure)
+        val response = patientUseCase.insertPatient(patient)
 
         if (response.error != null) {
             return Response
@@ -42,7 +39,7 @@ class ProcedureController(
     @GET
     @Path("/list")
     fun list(): Response {
-        val response = procedureUseCase.list()
+        val response = patientUseCase.list()
 
         if (response.error != null) {
             return Response
@@ -59,7 +56,7 @@ class ProcedureController(
     fun details(
         @PathParam("id") id: Int,
     ): Response {
-        val response = procedureUseCase.details(id)
+        val response = patientUseCase.details(id)
 
         if (response.error != null) {
             return Response
@@ -76,7 +73,7 @@ class ProcedureController(
     fun delete(
         @PathParam("id") id: Int,
     ): Response {
-        val response = procedureUseCase.delete(id)
+        val response = patientUseCase.delete(id)
 
         if (response.error != null) {
             return Response
@@ -91,9 +88,9 @@ class ProcedureController(
     @POST
     @Path("/edit")
     fun edit(
-        @RequestBody procedure: Procedure,
+        @RequestBody patient: Patient,
     ): Response {
-        val response = procedureUseCase.edit(procedure)
+        val response = patientUseCase.edit(patient)
 
         if (response.error != null) {
             return Response
