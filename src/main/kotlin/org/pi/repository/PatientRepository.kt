@@ -1,30 +1,32 @@
 package org.pi.repository
 
+import jakarta.enterprise.context.ApplicationScoped
 import jakarta.transaction.Transactional
 import org.pi.model.Patient
 import org.pi.model.Procedure
 import java.util.ArrayList
 
-class PatientRepository (
+@ApplicationScoped
+class PatientRepository(
     private val patientRepositoryJPA: PatientRepositoryJPA,
 ) {
     @Transactional
     fun insertNewPatient(patient: Patient): Patient {
-        val patientJpa = PatientJPA()
-
-        patientJpa.name = patient.name!!
-        patientJpa.email = patient.email!!
-        patientJpa.birthday = patient.birthday!!
-        patientJpa.age = patient.age!!
-        patientJpa.sex = patient.sex!!
-        patientJpa.responsible = patient.responsible!!
-        patientJpa.document = patient.document!!
-        patientJpa.address = patient.address!!
-        patientJpa.addressesNumber = patient.addressesNumber!!
-        patientJpa.homePhoneNumber = patient.homePhoneNumber
-        patientJpa.commercialPhoneNumber = patient.commercialPhoneNumber
-        patientJpa.phoneNumber = patient.phoneNumber
-        patientJpa.occupation = patient.occupation
+        val patientJpa = PatientJPA().apply {
+            this.name = patient.name!!
+            this.email = patient.email!!
+            this.birthday = patient.birthday!!
+            this.age = patient.age!!
+            this.sex = patient.sex!!
+            this.responsible = patient.responsible!!
+            this.document = patient.document!!
+            this.address = patient.address!!
+            this.addressesNumber = patient.addressesNumber!!
+            this.homePhoneNumber = patient.homePhoneNumber
+            this.commercialPhoneNumber = patient.commercialPhoneNumber
+            this.phoneNumber = patient.phoneNumber
+            this.occupation = patient.occupation
+        }
 
         patientRepositoryJPA.persist(patientJpa)
 

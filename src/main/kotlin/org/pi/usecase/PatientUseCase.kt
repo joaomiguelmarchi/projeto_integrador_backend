@@ -1,5 +1,6 @@
 package org.pi.usecase
 
+import jakarta.enterprise.context.ApplicationScoped
 import org.pi.model.Patient
 import org.pi.repository.PatientRepository
 import org.pi.utils.entities.DefaultResponse
@@ -14,10 +15,10 @@ import org.pi.utils.functions.RESPONSIBLE_IS_EMPTY
 import org.pi.utils.functions.SEX_IS_EMPTY
 import org.pi.utils.functions.UNEXPECTED
 
+@ApplicationScoped
 class PatientUseCase(
     private val patientRepository: PatientRepository,
-
-    ) {
+) {
     fun insertPatient(patient: Patient): DefaultResponse<Patient> {
         try {
 
