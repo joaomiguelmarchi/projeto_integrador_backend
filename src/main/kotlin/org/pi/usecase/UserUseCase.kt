@@ -51,10 +51,15 @@ class UserUseCase(
 
             val created = userRepository.insertNewUser(user)
 
-            created.password = ""
+            val userResponse = User(
+                id = created.id,
+                name = created.name,
+                email = created.email,
+                password = null
+            )
 
             return DefaultResponse(
-                data = created
+                data = userResponse
             )
         } catch (e: Exception) {
             return DefaultResponse(
@@ -71,9 +76,13 @@ class UserUseCase(
                 )
             }
 
+            if (login.password == null || login.password!! == "") {
+                return DefaultResponse(error = AUTH_PASSWORD_IS_EMPTY)
+            }
+
             val user = userRepository.getUserByEmail(login.email!!)
 
-            val matches = encoder.matches(login.password!!, user.password)
+            val matches = encoder.matches(login.password!!, user.password!!)
 
             if (!matches) {
                 return DefaultResponse(
