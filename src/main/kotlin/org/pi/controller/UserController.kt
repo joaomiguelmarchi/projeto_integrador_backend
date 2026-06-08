@@ -22,8 +22,7 @@ class UserController(
 ) {
     @POST
     @Path("/login")
-    fun login(
-        @RequestBody login: Login,
+    fun login( login: Login,
     ): Response {
         val response = userUseCase.login(login)
 
@@ -43,8 +42,7 @@ class UserController(
 
     @POST
     @Path("/create")
-    fun create(
-        @RequestBody user: User,
+    fun create( user: User,
     ): Response {
         val response = userUseCase.create(user)
 

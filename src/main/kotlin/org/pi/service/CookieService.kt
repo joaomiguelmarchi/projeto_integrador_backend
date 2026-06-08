@@ -10,6 +10,9 @@ class CookieService {
     @ConfigProperty(name = "mp.jwt.token.cookie")
     lateinit var cookieName: String
 
+    @ConfigProperty(name = "app.cookie.secure", defaultValue = "false")
+    var secureCookie: Boolean = false
+
     fun cleanCookie(): NewCookie = NewCookie.Builder(cookieName)
         .value("")
         .path("/")
@@ -20,7 +23,7 @@ class CookieService {
         .value(token.token)
         .path("/")
         .httpOnly(true)
-        .secure(true)
+        .secure(secureCookie)
         .sameSite(NewCookie.SameSite.STRICT)
         .maxAge(token.expiration!!.toInt())
         .build()
