@@ -43,7 +43,8 @@ class ProcedureRepository(
 
     @Transactional
     fun updateProcedure(procedure: Procedure): Procedure {
-        val procedureJpa = ProcedureJPA()
+        val procedureJpa = procedureRepositoryJPA.findById(procedure.id!!)
+            ?: throw IllegalArgumentException("Procedure not found")
 
         procedureJpa.id = procedure.id!!
         procedureJpa.name = procedure.name!!

@@ -52,7 +52,8 @@ class PatientRepository(
 
     @Transactional
     fun updatePatient(patient: Patient): Patient {
-        val patientJpa = PatientJPA()
+        val patientJpa = patientRepositoryJPA.findById(patient.id!!)
+            ?: throw IllegalArgumentException("Patient not found")
 
         patientJpa.id = patient.id!!
         patientJpa.name = patient.name!!

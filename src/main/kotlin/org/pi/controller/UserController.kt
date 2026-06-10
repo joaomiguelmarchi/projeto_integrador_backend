@@ -9,6 +9,7 @@ import jakarta.ws.rs.core.MediaType
 import jakarta.ws.rs.core.Response
 import org.eclipse.microprofile.openapi.annotations.parameters.RequestBody
 import org.pi.model.Login
+import org.pi.model.PasswordRecovery
 import org.pi.model.User
 import org.pi.service.CookieService
 import org.pi.usecase.UserUseCase
@@ -22,8 +23,7 @@ class UserController(
 ) {
     @POST
     @Path("/login")
-    fun login(
-        @RequestBody login: Login,
+    fun login( login: Login,
     ): Response {
         val response = userUseCase.login(login)
 
@@ -43,10 +43,24 @@ class UserController(
 
     @POST
     @Path("/create")
-    fun create(
-        @RequestBody user: User,
+    fun create( user: User,
     ): Response {
         val response = userUseCase.create(user)
+
+        if (response.error != null) {
+            return Response
+                .status(Response.Status.BAD_REQUEST)
+                .entity(response)
+                .build()
+        }
+
+        return Response.ok(response).build()
+    }
+
+    @POST
+    @Path("/recover_password")
+    fun recoverPassword(passwordRecovery: PasswordRecovery): Response {
+        val response = userUseCase.recoverPassword(passwordRecovery)
 
         if (response.error != null) {
             return Response
