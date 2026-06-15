@@ -7,8 +7,8 @@ import jakarta.enterprise.context.ApplicationScoped
 class AttendanceWebSocketBroadcaster(
     private val openConnections: OpenConnections,
 ) {
-    fun sendNextPatient(patientName: String) {
-        val message = buildNextPatientMessage(patientName)
+    fun sendNextPatient(patientId: Int, patientName: String) {
+        val message = buildNextPatientMessage(patientId, patientName)
 
         openConnections.listAll().forEach { connection ->
             runCatching {
@@ -17,7 +17,24 @@ class AttendanceWebSocketBroadcaster(
         }
     }
 
-    fun buildNextPatientMessage(patientName: String): String {
-        return "O proximo atendimento é com o paciente \"$patientName\""
+    fun buildNextPatientMessage(patientId: Int, patientName: String): String {
+        return """{"patientId":$patientId,"patientName":"${patientName.escapeJson()}"}"""
+    }
+
+    private fun String.escapeJson(): String {
+        return buildString {
+            this@escapeJson.forEach { char ->
+                when (char) {
+                    '\\' -> append("\\\\")
+                    '"' -> append("\\\"")
+                    '\b' -> append("\\b")
+                    '\u000C' -> append("\\f")
+                    '\n' -> append("\\n")
+                    '\r' -> append("\\r")
+                    '\t' -> append("\\t")
+                    else -> append(char)
+                }
+            }
+        }
     }
 }
