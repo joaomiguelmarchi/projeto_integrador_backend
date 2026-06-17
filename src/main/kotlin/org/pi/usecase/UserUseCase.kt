@@ -127,13 +127,15 @@ class UserUseCase(
                     <p>Recebemos uma solicitacao para alterar sua senha.</p>
                     <p><a href="$passwordRecoveryUrl">clique aqui para alterar senha</a></p>
                 """.trimIndent(),
-                to = listOf(user.email!!)
+                to = listOf(user.email!!),
+                withHtml = true,
             ))
 
             return DefaultResponse(
                 data = true
             )
         } catch (e: Exception) {
+            println(e.message)
             return DefaultResponse(
                 error = UNEXPECTED
             )
